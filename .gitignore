@@ -1,0 +1,9 @@
+.mypy_cache
+
+docs/build
+
+__pycache__
+
+venv*
+
+*.sublime-workspace
