@@ -10,7 +10,7 @@ You can install it with pip :
 
    pip install Jinja2-TD==3.x.x
 
-The Jinja2-TD version must match your Jinja2 version.
+The Jinja2-TD version must match your Jinja2 version. Currently, only the latest version (3.1.2) is supported.
 
 
 Import and setup
