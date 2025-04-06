@@ -4,9 +4,10 @@ build:
   os: ubuntu-22.04
   tools:
     python: "3.12"
-
-sphinx:
-  configuration: docs/conf.py
+  jobs:
+    build:
+      html:
+        - python3 -m sphinx -c docs docs/source $READTHEDOCS_OUTPUT/html/
 
 python:
   install:
