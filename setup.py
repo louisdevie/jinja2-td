@@ -26,6 +26,6 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[
-        "Jinja2 >=3.1.5 <=3.1.6",
+        "Jinja2 >=3.1.5, <=3.1.6",
     ],
 )

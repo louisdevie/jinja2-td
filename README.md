@@ -5,8 +5,9 @@ Provides information about Jinja2 template dependencies.
 ## Install
 
 ```sh
-pip install Jinja2-TD==3.x.x
+pip install jinja2-td=3.x.x
 ```
+[About version requirements](https://jinja2-td.readthedocs.io/en/latest/setup.html#installation)
 
 ## Example
 
@@ -26,4 +27,4 @@ else:
    print("This template doesn't extend another")
 ```
 
-[Go read the docs!](https://jinja2-td.readthedocs.io)
+[Go read the docs !](https://jinja2-td.readthedocs.io)
