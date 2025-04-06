@@ -1,4 +1,7 @@
-# Jinja2-TD  ![Read The Docs](https://readthedocs.org/projects/jinja2-td/badge/?version=latest)
+# Jinja2-TD 
+[![Read The Docs](https://readthedocs.org/projects/jinja2-td/badge/?version=latest)](https://jinja2-td.readthedocs.io)
+[![Tests](https://github.com/louisdevie/jinja2-td/actions/workflows/tests.yml/badge.svg)](https://github.com/louisdevie/jinja2-td/actions/workflows/tests.yml)
+[![PyPI](https://img.shields.io/pypi/v/jinja2-td)](https://pypi.org/project/Jinja2-TD)
 
 Provides information about Jinja2 template dependencies.
 
