@@ -5,17 +5,16 @@ with open("README.md", "rt", encoding="utf8") as f:
 
 setup(
     name="Jinja2-TD",
-    version="3.1.2",
+    version="3.1.4",
     description="Jinja2 template dependency insight",
     long_description=README,
     long_description_content_type="text/markdown",
-    license="MIT License",
+    license="MIT",
     author="Louis DEVIE",
     url="https://github.com/louisdevie/jinja2-td",
     packages=["jinja2td"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.8",
     ],
     keywords=[
@@ -26,6 +25,6 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[
-        "Jinja2==3.1.2",
+        "Jinja2 >=3.1.2, <=3.1.4",
     ],
 )

@@ -10,9 +10,13 @@ ALTER THE WAY JINJA WORKS, AND THAT EXISTING JINJA CODE MAY BREAK OR GET SLOWER.
 
 import jinja2
 
-if jinja2.__version__ != "3.1.2":
-    raise ImportError(
-        f"Jinja version doesn't match (expected 3.1.2, got {jinja2.__version__})."
+__ALLOWED_JINJA_VERSIONS = ("3.1.2", "3.1.3", "3.1.4")
+if jinja2.__version__ not in __ALLOWED_JINJA_VERSIONS:
+    import warnings
+
+    warnings.warn(
+        f"Jinja version doesn't match: expected one of {__ALLOWED_JINJA_VERSIONS}, got {jinja2.__version__!r}",
+        RuntimeWarning,
     )
 
 from . import overrides as _
