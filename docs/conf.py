@@ -19,11 +19,11 @@ sys.path.insert(0, os.path.abspath("../.."))
 # -- Project information -----------------------------------------------------
 
 project = "Jinja2-TD"
-copyright = "2022, Louis DEVIE"
+copyright = "2022-2025 Louis DEVIE"
 author = "Louis DEVIE"
 
 # The full version, including alpha/beta/rc tags
-release = "3.1.2"
+release = "3.1.6"
 
 
 # -- General configuration ---------------------------------------------------
