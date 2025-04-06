@@ -9,13 +9,12 @@ setup(
     description="Jinja2 template dependency insight",
     long_description=README,
     long_description_content_type="text/markdown",
-    license="MIT License",
+    license="MIT",
     author="Louis DEVIE",
     url="https://github.com/louisdevie/jinja2-td",
     packages=["jinja2td"],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
-        "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3.8",
     ],
     keywords=[
