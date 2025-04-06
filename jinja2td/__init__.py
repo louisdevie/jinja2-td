@@ -1,18 +1,19 @@
-"""Provides information about Jinja2 template dependecies.
+"""Provides information about Jinja2 template dependencies.
 
-The way it's done is quite intrusive, but the idea is that this package does all
-the dirty work so you don't have to. It provides an interface that lets you use
-it without having to modifiy existing Jinja code.
-
-BE AWARE THAT BY IMPORTING THE PACKAGE `jinja2td` OR ONE OF ITS MODULES, YOU
-ALTER THE WAY JINJA WORKS, AND THAT EXISTING JINJA CODE MAY BREAK OR GET SLOWER.
+This package will plug itself into the template compiler, and provide an
+interface that lets you use it without having to modify any of your existing
+code.
 """
 
 import jinja2
 
-if jinja2.__version__ != "3.1.2":
-    raise ImportError(
-        f"Jinja version doesn't match (expected 3.1.2, got {jinja2.__version__})."
+__ALLOWED_JINJA_VERSIONS = ("3.1.5", "3.1.6")
+if jinja2.__version__ not in __ALLOWED_JINJA_VERSIONS:
+    import warnings
+
+    warnings.warn(
+        f"Jinja version doesn't match: expected one of {__ALLOWED_JINJA_VERSIONS}, got {jinja2.__version__!r}",
+        RuntimeWarning,
     )
 
 from . import overrides as _

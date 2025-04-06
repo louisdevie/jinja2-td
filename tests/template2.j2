@@ -1,5 +1,5 @@
 {% extends 'template1.j2' %}
 {% import 'template4.j2' as t4 %}
 {% block test -%}
-	{% if is_outsider %}OS{% endif %} {{ t4.model('case') }}_{% include 'template3.j2' %}
+	{% if is_outsider %}OS{% endif %} {{ t4.model('case') }}_{% include dynamic_include %}
 {%- endblock %}

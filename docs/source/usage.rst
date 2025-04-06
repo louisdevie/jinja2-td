@@ -8,7 +8,7 @@ Get information about a template
 
 If a template has been loaded in the environment (e.g. with ``get_template``),
 you can use the ``dependencies`` attribute of the environment retrieve the static
-dependencies of that template:
+dependencies of that template :
 
 .. code-block:: python
 
@@ -44,8 +44,9 @@ dependencies of that template:
 Find the templates actually used
 --------------------------------
 
-You can detect all the templated used during render with the ``watch`` and
-``used_last_watch`` functions:
+You can detect all the templates (including ones that were dynamically
+included) used during render with the ``watch`` and ``used_last_watch``
+functions :
 
 .. code-block:: python
 

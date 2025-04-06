@@ -21,8 +21,8 @@ def _override(cls):
 
 @_override(CodeGenerator)
 def visit_Include(self, node: nodes.Include, frame: Frame) -> None:
-    # The code in this section is has been copied verbatim from Jinja2 (file compiler.py, lines 1031 to 1055)
-    # https://github.com/pallets/jinja/blob/b08cd4bc64bb980df86ed2876978ae5735572280/src/jinja2/compiler.py#L1031-L1055
+    # The code in this section has been copied verbatim from Jinja2 (file compiler.py, lines 1044 to 1067)
+    # https://github.com/pallets/jinja/blob/15206881c006c79667fe5154fe80c01c65410679/src/jinja2/compiler.py#L1044-L1067
     # Copyright 2007 Pallets - This code is licensed under the BSD 3-Clause license.
     # See LICENSE_JINJA2 for the full license text.
     # BEGIN COPIED CODE
@@ -84,30 +84,38 @@ def visit_Include(self, node: nodes.Include, frame: Frame) -> None:
             )
             self.outdent()
 
-    # The code in this section is has been copied verbatim from Jinja2 (file compiler.py, lines 1057 to 1079)
-    # https://github.com/pallets/jinja/blob/b08cd4bc64bb980df86ed2876978ae5735572280/src/jinja2/compiler.py#L1057-L1079
+    # The code in this section has been copied verbatim from Jinja2 (file compiler.py, lines 1069 to 1098)
+    # https://github.com/pallets/jinja/blob/15206881c006c79667fe5154fe80c01c65410679/src/jinja2/compiler.py#L1069-L1098
     # Copyright 2007 Pallets - This code is licensed under the BSD 3-Clause license.
     # See LICENSE_JINJA2 for the full license text.
     # BEGIN COPIED CODE
-    skip_event_yield = False
-    if node.with_context:
-        self.writeline(
-            f"{self.choose_async()}for event in template.root_render_func("
-            "template.new_context(context.get_all(), True,"
-            f" {self.dump_local_context(frame)})):"
-        )
-    elif self.environment.is_async:
-        self.writeline(
-            "for event in (await template._get_default_module_async())" "._body_stream:"
-        )
-    else:
-        self.writeline("yield from template._get_default_module()._body_stream")
-        skip_event_yield = True
-
-    if not skip_event_yield:
+    def loop_body() -> None:
         self.indent()
         self.simple_write("event", frame)
         self.outdent()
+
+    if node.with_context:
+        self.writeline(
+            f"gen = template.root_render_func("
+            "template.new_context(context.get_all(), True,"
+            f" {self.dump_local_context(frame)}))"
+        )
+        self.writeline("try:")
+        self.indent()
+        self.writeline(f"{self.choose_async()}for event in gen:")
+        loop_body()
+        self.outdent()
+        self.writeline(
+            f"finally: {self.choose_async('await gen.aclose()', 'gen.close()')}"
+        )
+    elif self.environment.is_async:
+        self.writeline(
+            "for event in (await template._get_default_module_async())"
+            "._body_stream:"
+        )
+        loop_body()
+    else:
+        self.writeline("yield from template._get_default_module()._body_stream")
 
     if node.ignore_missing:
         self.outdent()
@@ -143,8 +151,8 @@ def _import_common(
             )
             self.write(" if hasattr(environment, 'dependencies') else template)(")
 
-    # The code in this section is has been copied verbatim from Jinja2 (file compiler.py, lines 1084 to 1085)
-    # https://github.com/pallets/jinja/blob/b08cd4bc64bb980df86ed2876978ae5735572280/src/jinja2/compiler.py#L1084-L1085
+    # The code in this section has been copied verbatim from Jinja2 (file compiler.py, lines 1103 to 1104)
+    # https://github.com/pallets/jinja/blob/15206881c006c79667fe5154fe80c01c65410679/src/jinja2/compiler.py#L1103-L1104
     # Copyright 2007 Pallets - This code is licensed under the BSD 3-Clause license.
     # See LICENSE_JINJA2 for the full license text.
     # BEGIN COPIED CODE
@@ -155,11 +163,11 @@ def _import_common(
     self.write(f", {self.name!r})")
     if hasattr(self.environment, "dependencies"):
         if not self.environment.is_async or self.environment.dependencies.watch_async:
-            self.write(")")  # close the parenthesis open at the and of line 144
+            self.write(")")  # close the parenthesis open at the end of line 152
     self.write(".")
 
-    # The code in this section is has been copied verbatim from Jinja2 (file compiler.py, lines 1088 to 1094)
-    # https://github.com/pallets/jinja/blob/b08cd4bc64bb980df86ed2876978ae5735572280/src/jinja2/compiler.py#L1088-L1094
+    # The code in this section has been copied verbatim from Jinja2 (file compiler.py, lines 1107 to 1113)
+    # https://github.com/pallets/jinja/blob/15206881c006c79667fe5154fe80c01c65410679/src/jinja2/compiler.py#L1107-L1113
     # Copyright 2007 Pallets - This code is licensed under the BSD 3-Clause license.
     # See LICENSE_JINJA2 for the full license text.
     # BEGIN COPIED CODE
@@ -175,8 +183,8 @@ def _import_common(
 
 @_override(CodeGenerator)
 def visit_Extends(self, node: nodes.Extends, frame: Frame) -> None:
-    # The code in this section is has been copied verbatim from Jinja2 (file compiler.py, lines 989 to 1015)
-    # https://github.com/pallets/jinja/blob/b08cd4bc64bb980df86ed2876978ae5735572280/src/jinja2/compiler.py#L989-L1015
+    # The code in this section has been copied verbatim from Jinja2 (file compiler.py, lines 1002 to 1027)
+    # https://github.com/pallets/jinja/blob/15206881c006c79667fe5154fe80c01c65410679/src/jinja2/compiler.py#L1002-L1027
     # Copyright 2007 Pallets - This code is licensed under the BSD 3-Clause license.
     # See LICENSE_JINJA2 for the full license text.
     # BEGIN COPIED CODE
@@ -187,7 +195,6 @@ def visit_Extends(self, node: nodes.Extends, frame: Frame) -> None:
     # far, we don't have to add a check if something extended
     # the template before this one.
     if self.extends_so_far > 0:
-
         # if we have a known extends we just add a template runtime
         # error into the generated code.  We could catch that at compile
         # time too, but i welcome it not to confuse users by throwing the
@@ -230,8 +237,8 @@ def visit_Extends(self, node: nodes.Extends, frame: Frame) -> None:
             )
             self.outdent()
 
-    # The code in this section is has been copied verbatim from Jinja2 (file compiler.py, lines 1016 to 1028)
-    # https://github.com/pallets/jinja/blob/b08cd4bc64bb980df86ed2876978ae5735572280/src/jinja2/compiler.py#L1015-L1028
+    # The code in this section has been copied verbatim from Jinja2 (file compiler.py, lines 1028 to 1040)
+    # https://github.com/pallets/jinja/blob/15206881c006c79667fe5154fe80c01c65410679/src/jinja2/compiler.py#L1028-L1040
     # Copyright 2007 Pallets - This code is licensed under the BSD 3-Clause license.
     # See LICENSE_JINJA2 for the full license text.
     # BEGIN COPIED CODE
