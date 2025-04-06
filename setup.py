@@ -5,7 +5,7 @@ with open("README.md", "rt", encoding="utf8") as f:
 
 setup(
     name="Jinja2-TD",
-    version="3.1.2",
+    version="3.1.6",
     description="Jinja2 template dependency insight",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -26,6 +26,6 @@ setup(
     ],
     python_requires=">=3.8",
     install_requires=[
-        "Jinja2==3.1.2",
+        "Jinja2 >=3.1.5 <=3.1.6",
     ],
 )

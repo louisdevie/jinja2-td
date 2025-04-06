@@ -7,14 +7,14 @@ from typing import Optional, List, Dict
 class Target:
     """The target of a dependency.
 
-    A target is dynamic if it is not hard-coded in the template, in wich case
+    A target is dynamic if it is not hard-coded in the template, in which case
     the name of the target is unknown until it is resolved.
     """
 
     def __init__(self, dynamic: bool, name: Optional[str]):
         """Initialises a new `Target` class.
 
-        This class should not be instanciated manually.
+        This class should not be instantiated manually.
         """
         self.__dynamic = dynamic
         self.__name = name
@@ -72,7 +72,7 @@ class Dependency:
     ):
         """Initialises a new `Dependency` class.
 
-        This class should not be instanciated manually.
+        This class should not be instantiated manually.
         """
         self.__type = dependency_type
         self.__targets = targets
@@ -87,7 +87,7 @@ class Dependency:
 
     def _watch_reset(self):
         for r in self.__resolved:
-            r._reset()
+            r.watch_reset()
 
     @property
     def type(self) -> str:
@@ -117,37 +117,37 @@ class Dependency:
 
     @property
     def with_context(self) -> Optional[bool]:
-        """Wether the context is passed to the dependency or not.
+        """Whether the context is passed to the dependency or not.
 
         .. note::
-           Only available with ``"include"`` and ``"import"`` dependecies.
+           Only available with ``"include"`` and ``"import"`` dependencies.
         """
         return self.__with_context
 
     @property
     def ignore_missing(self) -> Optional[bool]:
-        """Wether the dependency is optional or not.
+        """Whether the dependency is optional or not.
 
         .. note::
-           Only available with ``"include"`` dependecies.
+           Only available with ``"include"`` dependencies.
         """
         return self.__ignore_missing
 
     @property
     def imported_as(self) -> Optional[str]:
-        """Wether the dependency is optional or not.
+        """Whether the dependency is optional or not.
 
         .. note::
-           Only available with ``"import"`` dependecies.
+           Only available with ``"import"`` dependencies.
         """
         return self.__imported_as
 
     @property
     def imported_names(self) -> Optional[List[str]]:
-        """Wether the dependency is optional or not.
+        """Whether the dependency is optional or not.
 
         .. note::
-           Only available with ``"import"`` dependecies.
+           Only available with ``"import"`` dependencies.
         """
         return self.__imported_names
 
@@ -177,7 +177,7 @@ class Template:
     def __init__(self, name: str, file: Optional[str], graph: "DependencyGraph"):
         """Initialises a new `Template` class.
 
-        This class should not be instanciated manually.
+        This class should not be instantiated manually.
         """
         self.__name = name
         self.__file = file
@@ -305,7 +305,7 @@ class DependencyGraph:
     def __init__(self):
         """Initialises a new `DependencyGraph` class.
 
-        This class should not be instanciated manually.
+        This class should not be instantiated manually.
         """
         self.__templates: Dict[str, Template] = {}
         self.__watch_async = False
@@ -326,7 +326,7 @@ class DependencyGraph:
         dependency = Dependency(dependency_type, targets, **kwargs)
 
         if dependent not in self.__templates:
-            raise ValueError(f"No such tempate: {dependent}")
+            raise ValueError(f"No such template: {dependent}")
 
         return self.__templates[dependent]._add_dependency(dependency)
 
@@ -340,7 +340,7 @@ class DependencyGraph:
             self.__templates[dependent]._resolve_dependency(
                 dependency_id, template.name
             )
-        # otherise, ignore silently not to break existing code
+        # otherwise, ignore silently not to break existing code
 
         return template
 
@@ -383,14 +383,11 @@ class DependencyGraph:
         """Returns all the templates used for rendering templates since the last
         call to `watch`.
 
-        By deault, the watch system is disabled in async environments, because
-        it gets messy when multiple
-        `jinja2.Template.render_async <https://jinja.palletsprojects.com/en/3.1.x/api/#jinja2.Template.render_async>`_
-        run in parallel. You can enable it explicitly by setting
-        `watch_async <#jinja2td.DependencyGraph.watch_async>`_ to ``True``, but
-        *be careful not to call* `watch <#jinja2td.DependencyGraph.watch>`_ *or*
-        `used_last_watch <#jinja2td.DependencyGraph.used_last_watch>`_ *while a
-        template is rendering*.
+        By default, the watch system is disabled in async environments. You can
+        enable it explicitly by setting `watch_async <#jinja2td.DependencyGraph.watch_async>`_
+        to ``True``, but *be careful not to call* `watch <#jinja2td.DependencyGraph.watch>`_
+        *or* `used_last_watch <#jinja2td.DependencyGraph.used_last_watch>`_
+        *while a template is rendering*.
 
         :returns: The names of the templates used during the last watch.
         """
