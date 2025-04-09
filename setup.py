@@ -5,7 +5,7 @@ with open("README.md", "rt", encoding="utf8") as f:
 
 setup(
     name="Jinja2-TD",
-    version="3.1.4",
+    version="3.1.4.post1",
     description="Jinja2 template dependency insight",
     long_description=README,
     long_description_content_type="text/markdown",
@@ -13,6 +13,7 @@ setup(
     author="Louis DEVIE",
     url="https://github.com/louisdevie/jinja2-td",
     packages=["jinja2td"],
+    package_data={ "jinja2td": ['py.typed'] },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Programming Language :: Python :: 3.8",
